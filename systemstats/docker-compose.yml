@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  system-agent:
+    image: elastest/emp-system-agent:latest
+    environment:
+      - KAFKA_ENDPOINT=kafka:9092
+      - KAFKA_KEY_SERIALIZER=StringSerializer
+      - KAFKA_VALUE_SERIALIZER=StringSerializer
+      - SENTINEL_TOPIC=user-1-elastest_core
+      - SENTINEL_SERIES=sys-stats
+      - PERIODICITY=60
+networks:
+  default:
+    external:
+      name: sentinel

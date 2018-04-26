@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  docker-agent:
+    image: elastest/emp-docker-agent:latest
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:rw
+    environment:
+      - KAFKA_ENDPOINT=kafka:9092
+      - KAFKA_KEY_SERIALIZER=StringSerializer
+      - KAFKA_VALUE_SERIALIZER=StringSerializer
+      - SENTINEL_TOPIC=user-1-elastest_core
+      - SENTINEL_SERIES=docker-stats
+      - DOCKER_SOCKET=unix://var/run/docker.sock
+      - PERIODICITY=120
+networks:
+  default:
+    external:
+      name: sentinel
